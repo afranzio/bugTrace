@@ -1,5 +1,4 @@
 import React from 'react'
-import CurrentTime from '../components/CurrentTime';
 
 interface User {
   "id": number,
@@ -12,7 +11,6 @@ async function UserPage() {
 
   return (
     <main>   
-      <CurrentTime />
       <h1>Users</h1>
       <ul>
         {data.map(user => <li key={user.id}> {user.name} </li>)}
