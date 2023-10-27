@@ -7,4 +7,10 @@ npm i prisma
 update database parameters
 
 
-Create model
+Create database model and migrate it.
+
+
+
+Nextjs React UI libraries:
+daisy UI
+radix-ui/themes
