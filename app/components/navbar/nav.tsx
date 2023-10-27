@@ -4,19 +4,17 @@ import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import classnames from 'classnames'
 
 import "./nav.css"
 
 const navigation = [
     { name: 'Dashboard', href: '/', current: true },
     { name: 'Issues', href: '/issues', current: false },
-    // { name: 'Projects', href: '#', current: false },
-    // { name: 'Calendar', href: '#', current: false },
 ]
 
 const NavBar = () => {
     const currentPath = usePathname();
-    console.log(currentPath);
 
     return (
         <div>
@@ -35,7 +33,11 @@ const NavBar = () => {
                 <div className="notificationIcon flex self-center">
                     <div className="flex">
                         {navigation.map( (link, index) => 
-                        <Link href={link.href} key={index} className={`text-zinc-500 mx-3 d-flex justify-center self-center hover:text-zinc-800 transition-colors ${currentPath == link.href ? "border-b-4 border-indigo-500 pt-1" : ""}`}>
+                        <Link href={link.href} key={index} className={classnames({
+                            'transition-colors d-flex mx-3 justify-center self-center hover:text-zinc-800' : true,
+                            'border-b-4 border-indigo-500 pt-1' : link.href == currentPath,
+                            'text-zinc-500': link.href != currentPath
+                        })}>
                             {link.name}
                         </Link>
                         )}
@@ -60,7 +62,11 @@ const NavBar = () => {
                         })
                     }
                 </ul>
-            </div> */}
+            </div> 
+            <Link href={link.href} key={index} className={`text-zinc-500 mx-3 d-flex justify-center self-center hover:text-zinc-800 transition-colors ${currentPath == link.href ? "border-b-4 border-indigo-500 pt-1" : ""}`}>
+                            {link.name}
+                        </Link>
+            */}
         </div>
     )
 }

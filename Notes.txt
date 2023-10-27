@@ -1,3 +1,10 @@
 Mosh Nextjs
 --------------
 Core Feature vs Advance Feature 
+
+
+npm i prisma
+update database parameters
+
+
+Create model
