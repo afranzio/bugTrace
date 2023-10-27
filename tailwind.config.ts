@@ -20,6 +20,11 @@ const config: Config = {
     require('@tailwindcss/container-queries'),
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
+    require("daisyui"),
   ],
+  daisyui: {
+    themes: ["light", "dark", "dracula"],
+  },
+
 }
 export default config
