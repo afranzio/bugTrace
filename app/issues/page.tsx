@@ -30,7 +30,7 @@ const Issues = async () => {
           </thead>
           <tbody>
             {data.map(user => <tr key={user.id}>
-              <td>{user.title}</td>
+              <td className="capitalize" >{user.title}</td>
               <td>{dateConversion(user.createdAt)}</td>
               <td>{user.description}</td>
             </tr>)}

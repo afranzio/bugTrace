@@ -48,7 +48,7 @@ const CreateIssue = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="mt-6 flex items-center justify-end gap-x-6 w-2/4 mx-auto">
+                    <div className="mt-6 flex items-center justify-end gap-x-6 mx-auto">
                         <button type="button" onClick={goBack} className="text-sm font-semibold leading-6 text-gray-900">
                             Cancel
                         </button>
