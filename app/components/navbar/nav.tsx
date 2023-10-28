@@ -25,21 +25,21 @@ const NavBar = () => {
                         width={30}
                         height={30}
                         alt="Logo"
-                    /> 
+                    />
                     <strong className='font-mono flex self-center ml-1'>
                         Tracker
                     </strong>
                 </Link>
                 <div className="notificationIcon flex self-center">
                     <div className="flex">
-                        {navigation.map( (link, index) => 
-                        <Link href={link.href} key={index} className={classnames({
-                            'transition-colors d-flex mx-3 justify-center self-center hover:text-zinc-800' : true,
-                            'border-b-4 border-indigo-500 pt-1' : link.href == currentPath,
-                            'text-zinc-500': link.href != currentPath
-                        })}>
-                            {link.name}
-                        </Link>
+                        {navigation.map((link, index) =>
+                            <Link href={link.href} key={index} className={classnames({
+                                'transition-colors d-flex mx-3 justify-center self-center hover:text-zinc-800': true,
+                                'border-b-4 border-indigo-500 pt-1': link.href == currentPath,
+                                'text-zinc-500': link.href != currentPath
+                            })}>
+                                {link.name}
+                            </Link>
                         )}
                         <Link href="/users" className='ml-3 self-center'>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-7 h-7">
@@ -64,8 +64,8 @@ const NavBar = () => {
                 </ul>
             </div> 
             <Link href={link.href} key={index} className={`text-zinc-500 mx-3 d-flex justify-center self-center hover:text-zinc-800 transition-colors ${currentPath == link.href ? "border-b-4 border-indigo-500 pt-1" : ""}`}>
-                            {link.name}
-                        </Link>
+                {link.name}
+            </Link>
             */}
         </div>
     )

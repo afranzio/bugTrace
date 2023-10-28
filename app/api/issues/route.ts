@@ -8,31 +8,31 @@ const createIssueSchema = z.object({
 })
 
 const getIDFromParams = (request: NextRequest) => {
-    const {searchParams} = new URL(request.url);
+    const { searchParams } = new URL(request.url);
     const param = Number(searchParams.get("id"));
     return param;
 }
 
-export async function POST (request: NextRequest){
+export async function POST(request: NextRequest) {
     const body = await request.json();
     const validation = createIssueSchema.safeParse(body);
-    if (!validation.success){
+    if (!validation.success) {
         return NextResponse.json(validation.error.errors, { status: 400 })
     }
 
     const newIssue = await prisma.issue.create({
-        data: {title: body.title, description: body.description} 
+        data: { title: body.title, description: body.description }
     })
 
-    return NextResponse.json(newIssue, { status: 201})
+    return NextResponse.json(newIssue, { status: 201 })
 
 }
 
-export async function PUT (request: NextRequest){
+export async function PUT(request: NextRequest) {
     const param = getIDFromParams(request)
     const body = await request.json();
     const validation = createIssueSchema.safeParse(body);
-    if (!validation.success){
+    if (!validation.success) {
         return NextResponse.json(validation.error.errors, { status: 400 })
     }
 
@@ -41,47 +41,51 @@ export async function PUT (request: NextRequest){
             where: {
                 id: param
             },
-            data: {title: body.title, description: body.description} 
+            data: { title: body.title, description: body.description }
         })
-        return NextResponse.json(deleteIssue, { status: 202})
+        return NextResponse.json(deleteIssue, { status: 202 })
     } catch (error) {
-        return NextResponse.json(error , { status: 401})
+        return NextResponse.json(error, { status: 401 })
     }
 }
 
-export async function DELETE (request: NextRequest){
+export async function DELETE(request: NextRequest) {
     const param = getIDFromParams(request)
 
-    if(param){
+    if (param) {
         try {
             const deleteIssue = await prisma.issue.delete({
                 where: {
                     id: param
                 }
             })
-            return NextResponse.json(deleteIssue, { status: 202})
+            return NextResponse.json(deleteIssue, { status: 202 })
         } catch (error) {
-            return NextResponse.json(error , { status: 401})
+            return NextResponse.json(error, { status: 401 })
         }
     }
 }
 
-export async function GET (request: NextRequest){
+export async function GET(request: NextRequest) {
     const param = getIDFromParams(request)
 
-    if(param){
+    if (param) {
         try {
             const getIssue = await prisma.issue.findUniqueOrThrow({
                 where: {
                     id: param
                 }
             })
-            return NextResponse.json(getIssue, { status: 200})
+            return NextResponse.json(getIssue, { status: 200 })
         } catch (error) {
-            return NextResponse.json(error , { status: 401})
+            return NextResponse.json(error, { status: 401 })
         }
     }
 
-    const getIssues = await prisma.issue.findMany()
-    return NextResponse.json(getIssues, { status: 200})
+    const getIssues = await prisma.issue.findMany({
+        orderBy: {
+            id: 'desc',
+        }
+    })
+    return NextResponse.json(getIssues, { status: 200 })
 }
