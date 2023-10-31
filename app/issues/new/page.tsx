@@ -1,8 +1,11 @@
 'use client';
-import React from 'react'
+import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+
 
 const CreateIssue = () => {
+
     const router = useRouter();
 
     // Function to go to the previous page
@@ -10,9 +13,15 @@ const CreateIssue = () => {
         router.back();
     };
 
+
+    const onSubmit = async (data:object) => {
+        console.log(data);
+        // axios.post('/api/issues', data);
+    };
+
     return (
         <div className='container w-full md:w-1/2'>
-            <form>
+            <form onSubmit={onSubmit}>
                 <div className="space-y-12">
                     <div className="border-b border-gray-900/10 pb-12 mx-auto">
                         <h2 className="text-xl border-b border-gray-900/10 pb-3 font-semibold leading-7 text-gray-900 subpixel-antialiased">Create Issue</h2>
@@ -24,7 +33,6 @@ const CreateIssue = () => {
                                 <div className="mt-2">
                                     <input
                                         type="text"
-                                        name="title"
                                         id="title"
                                         autoComplete="given-name"
                                         minLength={1}
@@ -41,7 +49,6 @@ const CreateIssue = () => {
                                 <div className="mt-2">
                                     <textarea
                                         id="description"
-                                        name="description"
                                         rows={3}
                                         minLength={1}
                                         className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
