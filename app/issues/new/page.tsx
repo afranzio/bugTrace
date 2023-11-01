@@ -2,6 +2,7 @@
 import React, { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { TextArea, TextField } from '@radix-ui/themes';
 
 
 const CreateIssue = () => {
@@ -30,32 +31,15 @@ const CreateIssue = () => {
                                 <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
                                     Title
                                 </label>
-                                <div className="mt-2">
-                                    <input
-                                        type="text"
-                                        id="title"
-                                        autoComplete="given-name"
-                                        minLength={1}
-                                        max={255}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                    />
-                                </div>
+                                <TextField.Input size="2" className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
 
                             <div className="col-span-full">
                                 <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
                                     Description
                                 </label>
-                                <div className="mt-2">
-                                    <textarea
-                                        id="description"
-                                        rows={3}
-                                        minLength={1}
-                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                                        defaultValue={''}
-                                    />
-                                </div>
-                                <p className="mt-3 text-sm leading-6 text-gray-600">Detailed description will help to the slove quicker.</p>
+                                <TextArea size="2" className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <p className="text-sm leading-6 text-gray-600">Detailed description will help to the slove quicker.</p>
                             </div>
                         </div>
                     </div>

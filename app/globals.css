@@ -27,3 +27,7 @@ body::-webkit-scrollbar{
 main{
     min-height: 60vh;
 }
+
+.rt-TextFieldInput:where(.rt-variant-surface){
+  --text-field-border-width: 0px !important;
+}
