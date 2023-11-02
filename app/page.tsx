@@ -71,7 +71,7 @@ async function AppPage() {
               </svg>
 
             </div>
-            <div className="stat-value">{closedIssues / allIssues * 100}%</div>
+            <div className="stat-value">{Math.round(closedIssues / allIssues * 100)}%</div>
             <div className="stat-title">Issues Resolved</div>
             <div className="stat-desc text-secondary">{openIssues + inProgressIssues} tasks remaining</div>
           </div>
