@@ -41,7 +41,6 @@ const Issues = async () => {
                   <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-                  {/* <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell> */}
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -51,7 +50,6 @@ const Issues = async () => {
                   <Table.Cell className="capitalize">
                   <DropDownMenu userStatus={user}/>
                   </Table.Cell>
-                  {/* <Table.Cell>{dateConversion(user.createdAt)}</Table.Cell> */}
                 </Table.Row>)}
               </Table.Body>
             </Table.Root>

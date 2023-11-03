@@ -1,7 +1,10 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import React from 'react'
 
+// Dependencies
+import Image from 'next/image'
+import Link from 'next/link'
+
+// DB
 import prisma from "@/prisma/client";
 
 async function AppPage() {

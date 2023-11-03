@@ -25,11 +25,15 @@ const CreateIssue = () => {
 
         try {
             const response = await axios.post('http://localhost:3000/api/issues', formData);
-            console.log('Response from the server:', response.data);
-            setFormData({
-                title: '',
-                description: '',
-            });
+            if (response.status === 200) {                
+                console.log('Response from the server:', response.data);
+                setFormData({
+                    title: '',
+                    description: '',
+                });
+            } else {
+                console.log('Response from the server:', response.data);
+            }
         } catch (error) {
             console.error('Error:', error);
         }
@@ -56,14 +60,14 @@ const CreateIssue = () => {
                                 <label htmlFor="username" className="block text-sm font-medium leading-6 text-gray-900">
                                     Title
                                 </label>
-                                <TextField.Input name='title' size="2" onChange={handleChange} className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <TextField.Input value={formData.title} name='title' size="2" onChange={handleChange} className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
 
                             <div className="col-span-full">
                                 <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
                                     Description
                                 </label>
-                                <TextArea name='description' size="2" onChange={handleChange} className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
+                                <TextArea value={formData.description} name='description' size="2" onChange={handleChange} className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                                 <p className="text-sm leading-6 text-gray-600">Detailed description will help to the slove quicker.</p>
                             </div>
                         </div>
