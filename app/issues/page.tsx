@@ -1,7 +1,9 @@
-'use client';
-
-import { Button, DropdownMenu, Table } from '@radix-ui/themes'
 import React from 'react'
+
+// Dependencies
+import { Table } from '@radix-ui/themes'
+import DropDownMenu from '../components/dropdown/dropdown'
+
 
 interface Issue {
   "id": number,
@@ -39,7 +41,7 @@ const Issues = async () => {
                   <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell>
+                  {/* <Table.ColumnHeaderCell>Created At</Table.ColumnHeaderCell> */}
                 </Table.Row>
               </Table.Header>
               <Table.Body>
@@ -47,41 +49,9 @@ const Issues = async () => {
                   <Table.RowHeaderCell className="capitalize">{user.title}</Table.RowHeaderCell>
                   <Table.Cell>{user.description}</Table.Cell>
                   <Table.Cell className="capitalize">
-                    <DropdownMenu.Root>
-                      <DropdownMenu.Trigger>
-                        <Button variant="soft">
-                        {user.status}
-                        </Button>
-                      </DropdownMenu.Trigger>
-                      <DropdownMenu.Content>
-                        <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-                        <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-                        <DropdownMenu.Separator />
-                        <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-
-                        <DropdownMenu.Sub>
-                          <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
-                          <DropdownMenu.SubContent>
-                            <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
-                            <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
-
-                            <DropdownMenu.Separator />
-                            <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
-                          </DropdownMenu.SubContent>
-                        </DropdownMenu.Sub>
-
-                        <DropdownMenu.Separator />
-                        <DropdownMenu.Item>Share</DropdownMenu.Item>
-                        <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-                        <DropdownMenu.Separator />
-                        <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
-                          Delete
-                        </DropdownMenu.Item>
-                      </DropdownMenu.Content>
-                    </DropdownMenu.Root>
-                    {/* {user.status} */}
+                  <DropDownMenu userStatus={user}/>
                   </Table.Cell>
-                  <Table.Cell>{dateConversion(user.createdAt)}</Table.Cell>
+                  {/* <Table.Cell>{dateConversion(user.createdAt)}</Table.Cell> */}
                 </Table.Row>)}
               </Table.Body>
             </Table.Root>
