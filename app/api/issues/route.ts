@@ -7,6 +7,12 @@ const createIssueSchema = z.object({
     description: z.string().min(1)
 })
 
+const updateIssueSchema = z.object({
+    title: z.string().optional(),
+    description: z.string().optional(),
+    status: z.string().optional(),
+})
+
 const getIDFromParams = (request: NextRequest) => {
     const { searchParams } = new URL(request.url);
     const param = Number(searchParams.get("id"));
@@ -31,7 +37,7 @@ export async function POST(request: NextRequest) {
 export async function PUT(request: NextRequest) {
     const param = getIDFromParams(request)
     const body = await request.json();
-    const validation = createIssueSchema.safeParse(body);
+    const validation = updateIssueSchema.safeParse(body);
     if (!validation.success) {
         return NextResponse.json(validation.error.errors, { status: 400 })
     }
@@ -41,7 +47,7 @@ export async function PUT(request: NextRequest) {
             where: {
                 id: param
             },
-            data: { title: body.title, description: body.description }
+            data: body
         })
         return NextResponse.json(deleteIssue, { status: 202 })
     } catch (error) {

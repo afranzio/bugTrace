@@ -1,4 +1,5 @@
 import React from 'react'
+import Image from 'next/image'
 
 interface User {
   "id": number,
@@ -7,26 +8,18 @@ interface User {
 }
 
 async function UserPage() {
-  const response = await fetch('https://jsonplaceholder.typicode.com/users', { next: { revalidate: 10 }, cache: 'no-store' })
-  const data: User[] = await response.json();
-
   return (
     <main>
-      <h1>Users</h1>
-      <table className="table table-bordered">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map(user => <tr key={user.id}>
-            <td>{user.name}</td>
-            <td>{user.email}</td>
-          </tr>)}
-        </tbody>
-      </table>
+      <div className="card lg:card-side bg-base-100 shadow-xl">
+        <figure><Image width="300" height="300" src="https:/daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.jpg" alt="Album" /></figure>
+        <div className="card-body">
+          <h2 className="card-title">New album is released!</h2>
+          <p>Click the button to listen on Spotiwhy app.</p>
+          <div className="card-actions justify-end">
+            <button className="btn btn-primary">Listen</button>
+          </div>
+        </div>
+      </div>
     </main>
   )
 }
