@@ -25,8 +25,9 @@ const CreateIssue = () => {
 
         try {
             const response = await axios.post('http://localhost:3000/api/issues', formData);
-            if (response.status === 200) {                
+            if (response.status === 201) {
                 console.log('Response from the server:', response.data);
+                alert("Issue created successfully!");
                 setFormData({
                     title: '',
                     description: '',
@@ -62,7 +63,6 @@ const CreateIssue = () => {
                                 </label>
                                 <TextField.Input value={formData.title} name='title' size="2" onChange={handleChange} className="block w-full rounded-md border-0 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" />
                             </div>
-
                             <div className="col-span-full">
                                 <label htmlFor="description" className="block text-sm font-medium leading-6 text-gray-900">
                                     Description

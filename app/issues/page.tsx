@@ -32,7 +32,7 @@ const Issues = async () => {
   return (
     <div>
       <main className="container w-full md:w-1/2">
-        <h2 className="text-xl border-b border-gray-900/10 pb-3 font-semibold leading-7 text-gray-900 subpixel-antialiased">Issues</h2>
+        <h2 className="text-lg leading-6 font-medium text-gray-900 border-b border-gray-900/10 pb-3 subpixel-antialiased">Issues</h2>
         {
           data.length > 0 ?
             <Table.Root variant="surface" className="table table-bordered">
