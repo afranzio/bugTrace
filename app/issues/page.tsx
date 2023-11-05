@@ -38,18 +38,18 @@ const Issues = async () => {
             <Table.Root variant="surface" className="table table-bordered">
               <Table.Header>
                 <Table.Row>
+                  <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Title</Table.ColumnHeaderCell>
                   <Table.ColumnHeaderCell>Description</Table.ColumnHeaderCell>
-                  <Table.ColumnHeaderCell>Status</Table.ColumnHeaderCell>
                 </Table.Row>
               </Table.Header>
               <Table.Body>
                 {data.map(user => <Table.Row key={user.id} >
+                  <Table.Cell className="capitalize">
+                    <DropDownMenu userStatus={user} />
+                  </Table.Cell>
                   <Table.RowHeaderCell className="capitalize">{user.title}</Table.RowHeaderCell>
                   <Table.Cell>{user.description}</Table.Cell>
-                  <Table.Cell className="capitalize">
-                  <DropDownMenu userStatus={user}/>
-                  </Table.Cell>
                 </Table.Row>)}
               </Table.Body>
             </Table.Root>
