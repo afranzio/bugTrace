@@ -8,9 +8,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import classnames from 'classnames'
 import { HiOutlineLogout } from 'react-icons/hi'
+import { GiHamburgerMenu } from 'react-icons/gi'
 
 // CSS
 import "./nav.css"
+import { DropdownMenu } from '@radix-ui/themes';
 
 const navigation = [
     { name: 'Dashboard', href: '/', current: true },
@@ -75,6 +77,56 @@ const NavBar = () => {
                             </Link>
                         </li>
                     </ul>
+                </div>
+                <div className="self-center block md:hidden">
+                    <details className="dropdown">
+                        <summary className="m-0 btn">
+                            <GiHamburgerMenu className="text-xl" />
+                        </summary>
+                        <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
+                            {navigation.map((link, index) =>
+                                <Link href={link.href} key={index} className={classnames({
+                                    'transition-colors d-flex mx-3 justify-center self-center hover:text-zinc-800 rounded w-28': true,
+                                    'border-b-4 border-indigo-500 pt-1': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
+                                    'text-zinc-500': link.href != currentPath
+                                })}>
+                                    {link.name}
+                                </Link>
+                            )}
+                        </ul>
+                    </details>
+                    {/* <DropdownMenu.Root>
+                        <DropdownMenu.Trigger>
+                            <button>
+                                
+                            </button>
+                        </DropdownMenu.Trigger>
+                        <DropdownMenu.Content>
+                            <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+                            <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
+
+                            <DropdownMenu.Sub>
+                                <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
+                                <DropdownMenu.SubContent>
+                                    <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
+                                    <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
+
+                                    <DropdownMenu.Separator />
+                                    <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
+                                </DropdownMenu.SubContent>
+                            </DropdownMenu.Sub>
+
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item>Share</DropdownMenu.Item>
+                            <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
+                            <DropdownMenu.Separator />
+                            <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+                                Delete
+                            </DropdownMenu.Item>
+                        </DropdownMenu.Content>
+                    </DropdownMenu.Root> */}
                 </div>
             </div>
         </div>
