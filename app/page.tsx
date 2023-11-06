@@ -1,7 +1,6 @@
 import React from 'react'
 
 // Dependencies
-import Image from 'next/image'
 import Link from 'next/link'
 
 // DB
