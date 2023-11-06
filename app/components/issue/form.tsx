@@ -1,25 +1,70 @@
 'use client';
-import React, { FormEvent  } from 'react'
+import React, { useState } from 'react'
 
 // Dependencies
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams  } from 'next/navigation';
 import { TextArea, TextField } from '@radix-ui/themes';
+import axios from 'axios';
 
 
-interface FormProps {
-    onSubmit: (event: FormEvent) => void;
-    formData: any;
-    handleChange: (event: FormEvent) => void;
-}
-
-const IssueForm: React.FC<FormProps> = ({ onSubmit, formData, handleChange }) => {
-
-    
+const IssueForm = ({ requestedIssues }:any) => {
     const router = useRouter();
+    const searchParams = useSearchParams()
+    const id = Number(searchParams.get('id'));
+
+    const [formData, setFormData] = useState(requestedIssues ? requestedIssues : {
+        title: '',
+        description: '',
+    });
+
+    console.log(requestedIssues);
 
     // Function to go to the previous page
     const goBack = () => {
         router.back();
+    };
+
+    const onSubmit = async (e: any) => {
+        e.preventDefault(); // Prevent the page reload
+
+        try {
+            let response; 
+            if(id){
+                const urlWithParams = "/api/issues?id="+id;
+                response = await axios.put(urlWithParams, formData);
+            }else{
+                response = await axios.post('/api/issues', formData);
+            }
+            if (response.status === 201) {
+                console.log('Response from the server:', response.data);
+                alert("Issue created successfully!");
+                setFormData({
+                    title: '',
+                    description: '',
+                });
+            } else if(response.status === 202){
+                console.log('Response from the server:', response.data);
+                alert("Issue updated successfully!");
+                setFormData({
+                    title: '',
+                    description: '',
+                });
+            } else {
+                console.log('Response from the server:', response.data);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    };
+
+    const handleChange = (e: any) => {
+        const { name, value } = e.target;
+
+        // Update the form data state when an input field changes
+        setFormData((prevData: any) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
 
     return (

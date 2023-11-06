@@ -23,12 +23,6 @@ const Issues = async () => {
     console.log("API error")
   }
 
-
-  const dateConversion = (date: string) => {
-    var dateTime = new Date(date);
-    return dateTime.toLocaleString();
-  }
-
   return (
     <div>
       <main className="container w-full md:w-1/2">
