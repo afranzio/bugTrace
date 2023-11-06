@@ -73,22 +73,12 @@ export async function DELETE(request: NextRequest) {
 }
 
 export async function GET(request: NextRequest) {
-    const param = getIDFromParams(request)
-
-    if (param) {
-        try {
-            const getIssue = await prisma.issue.findUniqueOrThrow({
-                where: {
-                    id: param
-                }
-            })
-            return NextResponse.json(getIssue, { status: 200 })
-        } catch (error) {
-            return NextResponse.json(error, { status: 401 })
-        }
-    }
+    const { searchParams } = new URL(request.url);
+    const page = Number(searchParams.get("page"));
 
     const getIssues = await prisma.issue.findMany({
+        skip: page>1 ? page*10-10 : 0,
+        take: 10,
         orderBy: {
             id: 'desc',
         }
