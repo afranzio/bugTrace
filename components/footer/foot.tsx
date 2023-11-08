@@ -4,7 +4,7 @@ import Link from 'next/link'
 
 const FootBar = () => {
     return (
-        <div className="bottom-0 w-100 mt-16 border-t border-gray-100 pt-8">
+        <div className="bottom-0 w-full mt-16 border-t border-gray-100 pt-8  ">
             <footer>
                 <div className="container justify-center text-center self-center mx-auto px-10 w-fit">
                     <Link href="/" className="justify-center icon flex self-center border p-1 rounded">

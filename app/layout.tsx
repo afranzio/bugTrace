@@ -30,10 +30,12 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className={"container mx-auto"}>
-          <NavBar />
-          {children}
-          <FootBar />
+          <div className={"flex flex-col container mx-auto min-h-screen"}>
+            <NavBar />
+            <div className="flex-grow">
+              {children}
+            </div>
+            <FootBar />
           </div>
         </ThemeProvider>
       </body>

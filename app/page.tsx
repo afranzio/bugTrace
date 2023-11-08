@@ -7,19 +7,28 @@ import Link from 'next/link'
 import prisma from "@/prisma/client";
 
 async function AppPage() {
-  const allIssues = await prisma.issue.count()
+  let allIssues:number = 0;
+  let openIssues:number = 0;
+  let inProgressIssues:number = 0;
+  let closedIssues:number = 0;
 
-  const openIssues = await prisma.issue.count({
-    where: { status: "OPEN" }
-  })
+  try {
+    allIssues = await prisma.issue.count()
 
-  const inProgressIssues = await prisma.issue.count({
-    where: { status: "IN_PROGRESS" }
-  })
-
-  const closedIssues = await prisma.issue.count({
-    where: { status: "CLOSE" }
-  })
+    openIssues = await prisma.issue.count({
+      where: { status: "OPEN" }
+    })
+  
+    inProgressIssues = await prisma.issue.count({
+      where: { status: "IN_PROGRESS" }
+    })
+  
+    closedIssues = await prisma.issue.count({
+      where: { status: "CLOSE" }
+    })
+  } catch (error) {
+    console.log(error);
+  }
 
   return (
     <main className="mx-auto justify-center d-flex">
