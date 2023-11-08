@@ -2,7 +2,7 @@ import React from 'react'
 
 // Dependencies
 import { Table } from '@radix-ui/themes'
-import DropDownMenu from '../components/dropdown/dropdown'
+import DropDownMenu from '@/components/dropdown/dropdown'
 
 
 interface Issue {

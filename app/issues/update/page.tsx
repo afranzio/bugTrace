@@ -1,7 +1,7 @@
 import React from 'react'
 
 // Components
-import IssueForm from '@/app/components/issue/form';
+import IssueForm from '@/components/issue/form';
 
 // DB
 import prisma from "@/prisma/client";

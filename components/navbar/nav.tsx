@@ -9,10 +9,10 @@ import { usePathname } from 'next/navigation'
 import classnames from 'classnames'
 import { HiOutlineLogout } from 'react-icons/hi'
 import { GiHamburgerMenu } from 'react-icons/gi'
+import { ModeToggle } from "@/components/theme-toogle";
 
 // CSS
 import "./nav.css"
-import { DropdownMenu } from '@radix-ui/themes';
 
 const navigation = [
     { name: 'Dashboard', href: '/', current: true },
@@ -49,6 +49,7 @@ const NavBar = () => {
                         )}
                     </div>
                 </div>
+                <ModeToggle />
                 <div className="dropdown dropdown-bottom dropdown-end ml-3 self-center hidden md:block">
                     <label tabIndex={0} className={classnames({
                         'self-center': true,
@@ -61,7 +62,7 @@ const NavBar = () => {
                     <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-50">
                         <li>
                             <Link href="/users" className={classnames({
-                                'self-center': true,
+                                'self-center text-zinc-500': true,
                                 'text-indigo-900': "/users" === currentPath,
                             })}>
                                 Profile
@@ -69,7 +70,7 @@ const NavBar = () => {
                         </li>
                         <li>
                             <Link href="/users" className={classnames({
-                                'self-center': true,
+                                'self-center text-zinc-500': true,
                                 'text-indigo-900': "/users" === currentPath,
                             })}>
                                 <HiOutlineLogout />
