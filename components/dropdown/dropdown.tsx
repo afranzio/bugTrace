@@ -46,8 +46,8 @@ const DropDownMenu = ({ userStatus }: any) => {
 
     return (
         <div className="self-center h-full d-flex">
-            <select className="text-sm rounded bg-transparent border-none py-5 self-center" id={userStatus.id} onChange={handleIssueStatusChange}>
-                {Object.entries(status).map(([key, value]) => <option className={`d-flex justify-between pl-5 text-sm text-slate-900 ${key === "DELETE" && " bg-red-200"} ${key === "UPDATE" && "bg-green-200"}`} key={key} value={key} selected={key === userStatus.status ? true : false} >{value}</option>)}
+            <select className="text-sm rounded bg-transparent border-none py-2 self-center" id={userStatus.getValue("id")} onChange={handleIssueStatusChange}>
+                {Object.entries(status).map(([key, value]) => <option className={`d-flex justify-between pl-5 py-2 text-sm text-slate-900 ${key === "DELETE" && " bg-red-200"} ${key === "UPDATE" && "bg-green-200"}`} key={key} value={key} selected={key === userStatus.getValue("status") ? true : false} >{value}</option>)}
             </select>
         </div>
     )
