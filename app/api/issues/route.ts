@@ -78,6 +78,8 @@ export async function GET(request: NextRequest) {
     const type = searchParams.get("type");
 
     let getIssues;
+    // let pagination;
+    // let response;
 
     if(type === "all"){
         getIssues = await prisma.issue.findMany({
@@ -105,5 +107,15 @@ export async function GET(request: NextRequest) {
             }
         })
     }
+
+    // let totalPages = getIssues.length / 10
+
+    // pagination = {
+    //     nextPage: page + 1,
+    //     prevPage: page - 1,
+    //     currentPage: page,
+    // }
+    // response = { data: getIssues, totalPages: totalPages, pagination: pagination }
+
     return NextResponse.json(getIssues, { status: 200 })
 }

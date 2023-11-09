@@ -68,7 +68,7 @@ export const columns: ColumnDef<Issue>[] = [
             )
         },
         cell: ({ row }) => (
-            <div className="capitalize font-medium">#{row.getValue("id")}</div>
+            <div className="capitalize font-medium text-center">#{row.getValue("id")}</div>
         ),
         enableHiding: false
     },
