@@ -38,7 +38,7 @@ async function AppPage() {
             Raise a Issue
           </button>
         </Link>
-        <div className="stats shadow my-5 hidden md:flex">
+        <div className="stats shadow my-10 py-5 hidden md:flex">
 
           <Link href="/issues" className="stat hover:cursor-pointer">
             <div className="stat-figure">

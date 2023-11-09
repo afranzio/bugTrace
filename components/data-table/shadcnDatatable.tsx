@@ -1,6 +1,8 @@
 "use client"
 
 import * as React from "react"
+
+// Dependencies
 import {
     CaretSortIcon,
     ChevronDownIcon,
@@ -40,7 +42,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import DropDownMenu from '@/components/dropdown/dropdown'
-import { useRouter } from 'next/navigation';
+
 
 interface Issue {
     "id": number,
