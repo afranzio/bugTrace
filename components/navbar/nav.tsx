@@ -41,7 +41,7 @@ const NavBar = () => {
                     <div className="flex">
                         {navigation.map((link, index) =>
                             <Link href={link.href} key={index} className={classnames({
-                                'transition-colors d-flex mx-3 justify-center self-center hover:text-zinc-800 rounded w-28': true,
+                                'transition-colors d-flex mx-3 justify-center self-center text-slate-200 hover:text-slate-100 hover:font-semibold rounded w-28': true,
                                 'border-b-4 border-indigo-500 pt-1': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
                                 'text-zinc-500': link.href != currentPath
                             })}>
