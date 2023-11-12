@@ -5,9 +5,10 @@ import * as React from "react"
 // Dependencies
 import {
     CaretSortIcon,
-    ChevronDownIcon,
-    DotsHorizontalIcon,
+    ChevronDownIcon
 } from "@radix-ui/react-icons"
+import { IoOpenOutline } from 'react-icons/io5'
+
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -20,7 +21,6 @@ import {
     getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
-
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -42,6 +42,7 @@ import {
     TableRow,
 } from "@/components/ui/table"
 import DropDownMenu from '@/components/dropdown/dropdown'
+import Link from "next/link"
 
 
 interface Issue {
@@ -83,7 +84,7 @@ export const columns: ColumnDef<Issue>[] = [
         accessorKey: "title",
         header: () => <div>Title</div>,
         cell: ({ row }) => {
-            return <div className="capitalize font-medium">{row.getValue("title")}</div>
+            return <div className="capitalize font-medium">{String(row.getValue("title")).substring(0, 20) + "..."}</div>
         },
     },
     {
@@ -99,7 +100,19 @@ export const columns: ColumnDef<Issue>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="capitalize">{row.getValue("description")}</div>,
+        cell: ({ row }) => <div className="capitalize">{String(row.getValue("description")).substring(0, 50) + "..."}</div>,
+    },
+    {
+        id: "actions",
+        enableHiding: false,
+        cell: ({ row }) => <div className="capitalize">
+            <Link href={"/issues/board/"+row.getValue("id")}>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                    <span className="sr-only">Open Issue</span>
+                    <IoOpenOutline className="h-4 w-4" />
+                </Button>
+            </Link>
+        </div>,
     },
     // {
     //     id: "actions",
@@ -110,7 +123,7 @@ export const columns: ColumnDef<Issue>[] = [
     //                 <DropdownMenuTrigger asChild>
     //                     <Button variant="ghost" className="h-8 w-8 p-0">
     //                         <span className="sr-only">Open menu</span>
-    //                         <DotsHorizontalIcon className="h-4 w-4" />
+    //                         <IoOpenOutline className="h-4 w-4" />
     //                     </Button>
     //                 </DropdownMenuTrigger>
     //                 <DropdownMenuContent align="end">
@@ -120,7 +133,7 @@ export const columns: ColumnDef<Issue>[] = [
     //                         Copy Bug ID
     //                     </DropdownMenuItem>
     //                     <DropdownMenuSeparator />
-    //                     <DropdownMenuItem onClick={() => useRouter().push('/issues/update?id='+row.getValue("id"))}>Update</DropdownMenuItem>
+    //                     <DropdownMenuItem onClick={() => useRouter().push('/issues/update?id=' + row.getValue("id"))}>Update</DropdownMenuItem>
     //                     <DropdownMenuItem className="bg-red-500 hover:bg-red-500">Delete</DropdownMenuItem>
     //                 </DropdownMenuContent>
     //             </DropdownMenu>
@@ -129,7 +142,7 @@ export const columns: ColumnDef<Issue>[] = [
     // },
 ]
 
-export function DataTableShadcn({data}: { data: Issue[] }) {
+export function DataTableShadcn({ data }: { data: Issue[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})

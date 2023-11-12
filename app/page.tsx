@@ -7,10 +7,10 @@ import Link from 'next/link'
 import prisma from "@/prisma/client";
 
 async function AppPage() {
-  let allIssues:number = 0;
-  let openIssues:number = 0;
-  let inProgressIssues:number = 0;
-  let closedIssues:number = 0;
+  let allIssues: number = 0;
+  let openIssues: number = 0;
+  let inProgressIssues: number = 0;
+  let closedIssues: number = 0;
 
   try {
     allIssues = await prisma.issue.count()
@@ -18,11 +18,11 @@ async function AppPage() {
     openIssues = await prisma.issue.count({
       where: { status: "OPEN" }
     })
-  
+
     inProgressIssues = await prisma.issue.count({
       where: { status: "IN_PROGRESS" }
     })
-  
+
     closedIssues = await prisma.issue.count({
       where: { status: "CLOSE" }
     })
@@ -68,7 +68,7 @@ async function AppPage() {
                 <path fillRule="evenodd" d="M11.484 2.17a.75.75 0 011.032 0 11.209 11.209 0 007.877 3.08.75.75 0 01.722.515 12.74 12.74 0 01.635 3.985c0 5.942-4.064 10.933-9.563 12.348a.749.749 0 01-.374 0C6.314 20.683 2.25 15.692 2.25 9.75c0-1.39.223-2.73.635-3.985a.75.75 0 01.722-.516l.143.001c2.996 0 5.718-1.17 7.734-3.08zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zM12 15a.75.75 0 00-.75.75v.008c0 .414.336.75.75.75h.008a.75.75 0 00.75-.75v-.008a.75.75 0 00-.75-.75H12z" clipRule="evenodd" />
               </svg>
             </div>
-            <div className="stat-value">{Math.round(closedIssues / allIssues * 100)}%</div>
+            <div className="stat-value">{closedIssues && allIssues ? Math.round(closedIssues / allIssues * 100) : 0}%</div>
             <div className="stat-title">Issues Resolved</div>
             <div className="stat-desc">{openIssues + inProgressIssues} tasks remaining</div>
           </Link>

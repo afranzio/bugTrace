@@ -41,8 +41,8 @@ const NavBar = () => {
                     <div className="flex">
                         {navigation.map((link, index) =>
                             <Link href={link.href} key={index} className={classnames({
-                                'transition-colors d-flex mx-3 justify-center self-center text-slate-200 hover:text-slate-100 hover:font-semibold rounded w-28': true,
-                                'border-b-4 border-indigo-500 pt-1': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
+                                'transition-colors d-flex mx-3 justify-center self-center hover:font-semibold rounded w-28': true,
+                                'border-b-4 border-indigo-500 pt-1 font-semibold': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
                                 'text-zinc-500': link.href != currentPath
                             })}>
                                 {link.name}
@@ -50,37 +50,39 @@ const NavBar = () => {
                         )}
                     </div>
                 </div>
-                <div className="dropdown d-flex dropdown-bottom dropdown-end ml-3 self-center hidden md:block">
-                    <div className="mr-3">
+                <div className='d-flex self-center'>
+                    <div className="mr-3 self-center">
                         <ModeToggle />
                     </div>
-                    <label tabIndex={0} className={classnames({
-                        'self-center': true,
-                        'text-indigo-900': "/users" === currentPath,
-                    })} >
-                        <button className="bg-transparent text-current border rounded-lg border-slate-700 py-2 px-2 w-fit h-fit">
-                            <PiUserBold className="text-lg" />
-                        </button>
-                    </label>
-                    <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-50">
-                        <li>
-                            <Link href="/users" className={classnames({
-                                'self-center text-zinc-500': true,
-                                'text-indigo-900': "/users" === currentPath,
-                            })}>
-                                Profile
-                            </Link>
-                        </li>
-                        <li>
-                            <Link href="/users" className={classnames({
-                                'self-center text-zinc-500': true,
-                                'text-indigo-900': "/users" === currentPath,
-                            })}>
-                                <HiOutlineLogout />
-                                Logout
-                            </Link>
-                        </li>
-                    </ul>
+                    <div className="dropdown d-flex dropdown-bottom dropdown-end ml-3 self-center hidden md:block">
+                        <label tabIndex={0} className={classnames({
+                            'self-center': true,
+                            'text-indigo-900': "/users" === currentPath,
+                        })} >
+                            <button className="bg-transparent text-current border rounded-lg border-slate-200 py-2 px-2 w-fit h-fit">
+                                <PiUserBold className="text-lg" />
+                            </button>
+                        </label>
+                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-50">
+                            <li>
+                                <Link href="/users" className={classnames({
+                                    'self-center': true,
+                                    'text-indigo-900': "/users" === currentPath,
+                                })}>
+                                    Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <Link href="/users" className={classnames({
+                                    'self-center': true,
+                                    'text-indigo-900': "/users" === currentPath,
+                                })}>
+                                    <HiOutlineLogout />
+                                    Logout
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="self-center block md:hidden">
                     <details className="dropdown">

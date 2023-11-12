@@ -17,8 +17,6 @@ const IssueForm = ({ requestedIssues }:any) => {
         description: '',
     });
 
-    console.log(requestedIssues);
-
     // Function to go to the previous page
     const goBack = () => {
         router.back();
