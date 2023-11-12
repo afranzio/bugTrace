@@ -84,7 +84,7 @@ export const columns: ColumnDef<Issue>[] = [
         accessorKey: "title",
         header: () => <div>Title</div>,
         cell: ({ row }) => {
-            return <div className="capitalize font-medium">{String(row.getValue("title")).substring(0, 20) + "..."}</div>
+            return <div className="capitalize">{String(row.getValue("title")).substring(0, 20) + "..."}</div>
         },
     },
     {

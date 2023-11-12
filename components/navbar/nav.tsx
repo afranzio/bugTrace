@@ -11,6 +11,13 @@ import { HiOutlineLogout } from 'react-icons/hi'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { PiUserBold } from 'react-icons/pi'
 import { ModeToggle } from "@/components/theme-toogle";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Button } from "@/components/ui/button"
 
 // CSS
 import "./nav.css"
@@ -51,37 +58,32 @@ const NavBar = () => {
                     </div>
                 </div>
                 <div className='d-flex self-center'>
-                    <div className="mr-3 self-center">
+                    <div className="mr-1 self-center">
                         <ModeToggle />
                     </div>
                     <div className="dropdown d-flex dropdown-bottom dropdown-end ml-3 self-center hidden md:block">
-                        <label tabIndex={0} className={classnames({
-                            'self-center': true,
-                            'text-indigo-900': "/users" === currentPath,
-                        })} >
-                            <button className="bg-transparent text-current border rounded-lg border-slate-200 py-2 px-2 w-fit h-fit">
-                                <PiUserBold className="text-lg" />
-                            </button>
-                        </label>
-                        <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-50">
-                            <li>
-                                <Link href="/users" className={classnames({
-                                    'self-center': true,
-                                    'text-indigo-900': "/users" === currentPath,
-                                })}>
-                                    Profile
+                        <DropdownMenu>
+                            <DropdownMenuTrigger asChild>
+                                <label tabIndex={0}>
+                                    <Button variant="outline" size="icon">
+                                        <PiUserBold className="text-lg" />
+                                    </Button>
+                                </label>
+                            </DropdownMenuTrigger>
+                            <DropdownMenuContent align="end">
+                                <Link href="/users">
+                                    <DropdownMenuItem>
+                                        Profile
+                                    </DropdownMenuItem>
                                 </Link>
-                            </li>
-                            <li>
-                                <Link href="/users" className={classnames({
-                                    'self-center': true,
-                                    'text-indigo-900': "/users" === currentPath,
-                                })}>
-                                    <HiOutlineLogout />
-                                    Logout
+                                <Link href="/auth/login">
+                                    <DropdownMenuItem>
+                                        {/* <HiOutlineLogout className="mr-2" /> */}
+                                        Login
+                                    </DropdownMenuItem>
                                 </Link>
-                            </li>
-                        </ul>
+                            </DropdownMenuContent>
+                        </DropdownMenu>
                     </div>
                 </div>
                 <div className="self-center block md:hidden">
