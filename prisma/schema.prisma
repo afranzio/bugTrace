@@ -8,12 +8,18 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DIRECT_URL")
 }
 
 enum Role {
   admin
   user
+}
+
+enum Status {
+  OPEN
+  IN_PROGRESS
+  HOLD
+  CLOSE
 }
 
 model Issue {
@@ -28,13 +34,17 @@ model Issue {
 model Profile {
   id    String @id @db.Uuid
   role  Role   @default(user)
+  notes Note[]
 
   @@map("profile")
 }
 
-enum Status {
-  OPEN
-  IN_PROGRESS
-  HOLD
-  CLOSE
+model Note {
+  id   String @id @default(uuid()) @db.Uuid
+  text String
+
+  user   Profile @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  userId String  @db.Uuid
+
+  @@map("note")
 }

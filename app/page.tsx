@@ -1,12 +1,21 @@
 import React from 'react'
 
 // Dependencies
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import Link from 'next/link'
 
 // DB
 import prisma from "@/prisma/client";
 
 async function AppPage() {
+  const supabase = createServerComponentClient({ cookies });
+  const { data } = await supabase.auth.getSession();
+  if (!data.session?.user) {
+    redirect("/login");
+  }
+
   let allIssues: number = 0;
   let openIssues: number = 0;
   let inProgressIssues: number = 0;
