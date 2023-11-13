@@ -5,9 +5,8 @@ import React, { useEffect, useState } from 'react'
 // Dependencies
 import Image from 'next/image'
 import Link from 'next/link'
-import { redirect, usePathname, useRouter } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import classnames from 'classnames'
-import { HiOutlineLogout } from 'react-icons/hi'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { PiUserBold } from 'react-icons/pi'
 import { ModeToggle } from "@/components/theme-toogle";
@@ -32,21 +31,18 @@ const NavBar = () => {
     const currentPath = usePathname();
     const router = useRouter();
     const supabase = createClientComponentClient();
-
-    const [userInfo, setUserInfo] = useState({})
+    const [userLogged, setUserLogged] = useState(false)
 
     useEffect(() => {
-        async function fetchUserInfo() {
-            const { data: { user } } = await supabase.auth.getUser()
-            if (!user) {
-                setUserInfo({})
-                router.push("/login")
-            } else {
-                setUserInfo(user)
+        const getSession = async () => {
+            const { data } = await supabase.auth.getSession();
+            setUserLogged(data.session?.user ? true : false)
+            if (!data.session?.user) {
+                router.push("/login");
             }
         }
-        fetchUserInfo()
-    }, [])
+        getSession()
+    }, [userLogged, router, supabase.auth])
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();
@@ -68,7 +64,7 @@ const NavBar = () => {
                     </strong>
                 </Link>
                 {
-                    userInfo && <div className="notificationIcon self-center hidden md:block">
+                    userLogged && <div className="notificationIcon self-center hidden md:block">
                         <div className="flex">
                             {navigation.map((link, index) =>
                                 <Link href={link.href} key={index} className={classnames({
@@ -101,7 +97,7 @@ const NavBar = () => {
                                     </DropdownMenuItem>
                                 </Link>
                                 {
-                                    !userInfo ? <Link href="/login">
+                                    !userLogged ? <Link href="/login">
                                         <DropdownMenuItem>
                                             Login
                                         </DropdownMenuItem>
