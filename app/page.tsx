@@ -1,9 +1,6 @@
 import React from 'react'
 
 // Dependencies
-import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import Link from 'next/link'
 
 // DB
@@ -42,7 +39,6 @@ async function AppPage() {
           </button>
         </Link>
         <div className="stats shadow my-10 py-5 hidden md:flex">
-
           <Link href="/issues" className="stat hover:cursor-pointer">
             <div className="stat-figure">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
@@ -53,7 +49,6 @@ async function AppPage() {
             <div className="stat-value">{openIssues}</div>
             <div className="stat-desc">21% more than last month</div>
           </Link>
-
           <Link href="/issues" className="stat hover:cursor-pointer">
             <div className="stat-figure">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
@@ -64,7 +59,6 @@ async function AppPage() {
             <div className="stat-value">{inProgressIssues}</div>
             <div className="stat-desc">21% more than last month</div>
           </Link>
-
           <Link href="/issues" className="stat hover:cursor-pointer">
             <div className="stat-figure">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
@@ -75,7 +69,6 @@ async function AppPage() {
             <div className="stat-title">Issues Resolved</div>
             <div className="stat-desc">{openIssues + inProgressIssues} tasks remaining</div>
           </Link>
-
         </div>
       </div>
     </main>
