@@ -1,13 +1,19 @@
 import React from 'react'
-import Image from 'next/image'
 
-interface User {
-  "id": number,
-  "name": string,
-  "email": string,
-}
+// Dependencies
+import Image from 'next/image'
+import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 async function UserPage() {
+  const supabase = createServerComponentClient({ cookies });
+
+  const { data } = await supabase.auth.getSession();
+  if (!data.session?.user) {
+    redirect("/login");
+  }
+
   return (
     <main>
       <div className="bg-white max-w-2xl mx-auto shadow overflow-hidden sm:rounded-lg">
@@ -42,7 +48,7 @@ async function UserPage() {
                 Email address
               </dt>
               <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
-                m.poul@example.com
+                {data.session?.user.email}
               </dd>
             </div>
             <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
