@@ -1,11 +1,11 @@
 'use client';
 
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 // Dependencies
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { redirect, usePathname, useRouter } from 'next/navigation'
 import classnames from 'classnames'
 import { HiOutlineLogout } from 'react-icons/hi'
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -18,6 +18,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // CSS
 import "./nav.css"
@@ -29,6 +30,28 @@ const navigation = [
 
 const NavBar = () => {
     const currentPath = usePathname();
+    const router = useRouter();
+    const supabase = createClientComponentClient();
+
+    const [userInfo, setUserInfo] = useState({})
+
+    useEffect(() => {
+        async function fetchUserInfo() {
+            const { data: { user } } = await supabase.auth.getUser()
+            if (!user) {
+                setUserInfo({})
+                router.push("/login")
+            } else {
+                setUserInfo(user)
+            }
+        }
+        fetchUserInfo()
+    }, [])
+
+    const handleSignOut = async () => {
+        await supabase.auth.signOut();
+        router.refresh();
+    };
 
     return (
         <div>
@@ -44,18 +67,20 @@ const NavBar = () => {
                         Tracker
                     </strong>
                 </Link>
-                <div className="notificationIcon self-center hidden md:block">
-                    <div className="flex">
-                        {navigation.map((link, index) =>
-                            <Link href={link.href} key={index} className={classnames({
-                                'transition-colors d-flex mx-3 justify-center self-center hover:font-semibold rounded w-28': true,
-                                'border-b-4 border-indigo-500 pt-1 font-semibold': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
-                            })}>
-                                {link.name}
-                            </Link>
-                        )}
+                {
+                    userInfo && <div className="notificationIcon self-center hidden md:block">
+                        <div className="flex">
+                            {navigation.map((link, index) =>
+                                <Link href={link.href} key={index} className={classnames({
+                                    'transition-colors d-flex mx-3 justify-center self-center hover:font-semibold rounded w-28': true,
+                                    'border-b-4 border-indigo-500 pt-1 font-semibold': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
+                                })}>
+                                    {link.name}
+                                </Link>
+                            )}
+                        </div>
                     </div>
-                </div>
+                }
                 <div className='d-flex self-center'>
                     <div className="mr-1 self-center">
                         <ModeToggle />
@@ -75,12 +100,16 @@ const NavBar = () => {
                                         Profile
                                     </DropdownMenuItem>
                                 </Link>
-                                <Link href="/auth/login">
-                                    <DropdownMenuItem>
-                                        {/* <HiOutlineLogout className="mr-2" /> */}
-                                        Login
+                                {
+                                    !userInfo ? <Link href="/login">
+                                        <DropdownMenuItem>
+                                            Login
+                                        </DropdownMenuItem>
+                                    </Link> : <DropdownMenuItem onClick={handleSignOut}>
+                                        Logout
                                     </DropdownMenuItem>
-                                </Link>
+                                }
+
                             </DropdownMenuContent>
                         </DropdownMenu>
                     </div>
@@ -102,38 +131,6 @@ const NavBar = () => {
                             )}
                         </ul>
                     </details>
-                    {/* <DropdownMenu.Root>
-                        <DropdownMenu.Trigger>
-                            <button>
-                                
-                            </button>
-                        </DropdownMenu.Trigger>
-                        <DropdownMenu.Content>
-                            <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
-                            <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
-                            <DropdownMenu.Separator />
-                            <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
-
-                            <DropdownMenu.Sub>
-                                <DropdownMenu.SubTrigger>More</DropdownMenu.SubTrigger>
-                                <DropdownMenu.SubContent>
-                                    <DropdownMenu.Item>Move to project…</DropdownMenu.Item>
-                                    <DropdownMenu.Item>Move to folder…</DropdownMenu.Item>
-
-                                    <DropdownMenu.Separator />
-                                    <DropdownMenu.Item>Advanced options…</DropdownMenu.Item>
-                                </DropdownMenu.SubContent>
-                            </DropdownMenu.Sub>
-
-                            <DropdownMenu.Separator />
-                            <DropdownMenu.Item>Share</DropdownMenu.Item>
-                            <DropdownMenu.Item>Add to favorites</DropdownMenu.Item>
-                            <DropdownMenu.Separator />
-                            <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
-                                Delete
-                            </DropdownMenu.Item>
-                        </DropdownMenu.Content>
-                    </DropdownMenu.Root> */}
                 </div>
             </div>
         </div>
