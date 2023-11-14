@@ -5,7 +5,6 @@ import React, { useEffect, useState } from 'react'
 // Dependencies
 import Image from 'next/image'
 import Link from 'next/link'
-import { usePathname, useRouter } from 'next/navigation'
 import classnames from 'classnames'
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { PiUserBold } from 'react-icons/pi'
@@ -17,6 +16,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Button } from "@/components/ui/button"
+import { usePathname, useRouter } from 'next/navigation'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 // CSS

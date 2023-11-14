@@ -27,9 +27,6 @@ import {
     DropdownMenu,
     DropdownMenuCheckboxItem,
     DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -45,16 +42,16 @@ import DropDownMenu from '@/components/dropdown/dropdown'
 import Link from "next/link"
 
 
-interface Issue {
+interface IssueTypes {
     "id": number,
     "title": string,
     "description": string,
-    "createdAt": string,
-    "updatedAt": string,
+    "createdAt": Date,
+    "updatedAt": Date,
     "status": "OPEN" | "IN_PROGRESS" | "HOLD" | "CLOSE"
 }
 
-export const columns: ColumnDef<Issue>[] = [
+export const columns: ColumnDef<IssueTypes>[] = [
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -114,35 +111,9 @@ export const columns: ColumnDef<Issue>[] = [
             </Link>
         </div>,
     },
-    // {
-    //     id: "actions",
-    //     enableHiding: false,
-    //     cell: ({ row }) => {
-    //         return (
-    //             <DropdownMenu>
-    //                 <DropdownMenuTrigger asChild>
-    //                     <Button variant="ghost" className="h-8 w-8 p-0">
-    //                         <span className="sr-only">Open menu</span>
-    //                         <IoOpenOutline className="h-4 w-4" />
-    //                     </Button>
-    //                 </DropdownMenuTrigger>
-    //                 <DropdownMenuContent align="end">
-    //                     <DropdownMenuItem
-    //                         onClick={() => navigator.clipboard.writeText(row.getValue("id"))}
-    //                     >
-    //                         Copy Bug ID
-    //                     </DropdownMenuItem>
-    //                     <DropdownMenuSeparator />
-    //                     <DropdownMenuItem onClick={() => useRouter().push('/issues/update?id=' + row.getValue("id"))}>Update</DropdownMenuItem>
-    //                     <DropdownMenuItem className="bg-red-500 hover:bg-red-500">Delete</DropdownMenuItem>
-    //                 </DropdownMenuContent>
-    //             </DropdownMenu>
-    //         )
-    //     },
-    // },
 ]
 
-export function DataTableShadcn({ data }: { data: Issue[] }) {
+export function DataTableShadcn({ data }: { data: IssueTypes[] }) {
     const [sorting, setSorting] = React.useState<SortingState>([])
     const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>([])
     const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({})

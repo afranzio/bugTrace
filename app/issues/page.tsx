@@ -3,33 +3,40 @@ import React from 'react'
 // Dependencies
 import DataTableShadcn from '@/components/data-table/shadcnDatatable'
 
+// DB
+import prisma from "@/prisma/client";
 
-interface Issue {
+interface IssueTypes {
   "id": number,
   "title": string,
   "description": string,
-  "createdAt": string,
-  "updatedAt": string,
   "status": "OPEN" | "IN_PROGRESS" | "HOLD" | "CLOSE"
+  "createdAt": Date,
+  "updatedAt": Date,
 }
 
 const Issues = async () => {
-
-  let data: Issue[] = []
-
+  let issueData: IssueTypes[] = [];
   try {
-    const response = await fetch('http://localhost:3000/api/issues?type=NotClosed', { cache: 'no-store' })
-    data = await response.json();
-    console.log(data)
+    issueData = await prisma.issue.findMany({
+      where: {
+        NOT: {
+          status: 'CLOSE',
+        }
+      },
+      orderBy: {
+        id: 'desc',
+      }
+    })
   } catch (error) {
-    console.log("API error")
+    console.log(error)
   }
 
   return (
     <div>
       <main className="container w-full md:w-2/3">
         <h2 className="leading-6 font-medium border-b border-gray-900/10 pb-3 subpixel-antialiased text-xl">Issues</h2>
-          <DataTableShadcn data={data} />
+        <DataTableShadcn data={issueData} />
       </main>
     </div>
   )
