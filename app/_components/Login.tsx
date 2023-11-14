@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
@@ -40,41 +41,43 @@ export default function Login() {
 
   return (
     <>
-      {errorMessage && <p className="bg-red-700 p-4">{errorMessage}</p>}
+      {errorMessage && <p className="bg-red-300 p-4 my-3 font-mono">{errorMessage}</p>}
       <form className="flex flex-col gap-4">
-        <label className="grid">
+        <label className="grid text-gray-300 text-sm font-bold mb-2">
           Email
           <input
-            className="p-2 text-black"
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
             name="email"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
           />
         </label>
-        <label className="grid">
+        <label className="grid text-gray-300 text-sm font-bold mb-2">
           Password
           <input
-            className="p-2 text-black"
+            className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
             type="password"
             name="password"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
           />
         </label>
-        <button
-          className="bg-gray-800 p-2"
-          type="button"
-          onClick={handleSignUp}
-        >
-          Sign up
-        </button>
-        <button
-          className="bg-gray-800 p-2"
-          type="button"
-          onClick={handleSignIn}
-        >
-          Sign in
-        </button>
+        <div className="w-full d-flex justify-around">
+          <Button variant="outline"
+            className="p-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={handleSignIn}
+          >
+            Sign in
+          </Button>
+          <Button variant="outline"
+            className="p-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            type="button"
+            onClick={handleSignUp}
+          >
+            Sign up
+          </Button>
+        </div>
       </form>
     </>
   );
