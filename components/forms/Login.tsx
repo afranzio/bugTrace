@@ -27,7 +27,7 @@ export default function Login() {
 
   return (
     <>
-      {errorMessage && <p className="bg-red-300 p-4 my-3 font-mono">{errorMessage}</p>}
+      {errorMessage && <p className="bg-red-500 rounded p-4 my-3 font-mono">{errorMessage}</p>}
       <form className="flex flex-col gap-4">
         <label className="grid text-sm font-bold mb-2">
           Email

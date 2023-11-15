@@ -18,16 +18,13 @@ const IssueForm = ({ requestedIssues }: any) => {
     const [formData, setFormData] = useState(requestedIssues ? requestedIssues : {
         title: '',
         description: '',
-        Owner: ''
     });
+    const [userInfo, setUserInfo] = useState({ id: "" })
 
     useEffect(() => {
         const getSession = async () => {
             const { data } = await supabase.auth.getSession();
-            setFormData((prevData: any) => ({
-                ...prevData,
-                Owner: data.session ? data.session.user.id : "",
-            }));
+            setUserInfo(data.session ? data.session.user : { id: "" })
         }
         getSession()
     }, [router, supabase.auth])
@@ -46,7 +43,16 @@ const IssueForm = ({ requestedIssues }: any) => {
                 const urlWithParams = "/api/issues?id=" + id;
                 response = await axios.put(urlWithParams, formData);
             } else {
-                response = await axios.post('/api/issues', formData);
+                response = await axios.post('/api/issues', {
+                    title: formData.title,
+                    description: formData.description,
+                    Owner: {
+                        connect: {
+                            id: userInfo.id, // Connect the post to the user by user ID
+                        },
+
+                    }
+                });
             }
             if (response.status === 201) {
                 console.log('Response from the server:', response.data);
