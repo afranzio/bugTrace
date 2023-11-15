@@ -34,7 +34,6 @@ const NavBar = () => {
     const [userLogged, setUserLogged] = useState(false)
 
     useEffect(() => {
-        console.log("Running Here")
         const getSession = async () => {
             const { data } = await supabase.auth.getSession();
             setUserLogged(data.session?.user ? true : false)
@@ -43,7 +42,7 @@ const NavBar = () => {
             }
         }
         getSession()
-    }, [userLogged, router, supabase.auth])
+    }, [userLogged, currentPath, router, supabase.auth])
 
     const handleSignOut = async () => {
         await supabase.auth.signOut();

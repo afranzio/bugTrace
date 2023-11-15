@@ -2,12 +2,13 @@
 import React, { useState } from 'react'
 
 // Dependencies
-import { useRouter, useSearchParams  } from 'next/navigation';
-import { TextArea, TextField } from '@radix-ui/themes';
+import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
+import { Input } from '@/components/ui/input';
+import { Textarea } from '@/components/ui/textarea';
 
 
-const IssueForm = ({ requestedIssues }:any) => {
+const IssueForm = ({ requestedIssues }: any) => {
     const router = useRouter();
     const searchParams = useSearchParams()
     const id = Number(searchParams.get('id'));
@@ -26,11 +27,11 @@ const IssueForm = ({ requestedIssues }:any) => {
         e.preventDefault(); // Prevent the page reload
 
         try {
-            let response; 
-            if(id){
-                const urlWithParams = "/api/issues?id="+id;
+            let response;
+            if (id) {
+                const urlWithParams = "/api/issues?id=" + id;
                 response = await axios.put(urlWithParams, formData);
-            }else{
+            } else {
                 response = await axios.post('/api/issues', formData);
             }
             if (response.status === 201) {
@@ -40,7 +41,7 @@ const IssueForm = ({ requestedIssues }:any) => {
                     title: '',
                     description: '',
                 });
-            } else if(response.status === 202){
+            } else if (response.status === 202) {
                 console.log('Response from the server:', response.data);
                 alert("Issue updated successfully!");
                 setFormData({
@@ -75,13 +76,13 @@ const IssueForm = ({ requestedIssues }:any) => {
                                 <label htmlFor="username" className="block text-sm font-medium leading-6">
                                     Title
                                 </label>
-                                <TextField.Input value={formData.title} name='title' size="2" onChange={handleChange} className="block w-full border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-md" />
+                                <Input value={formData.title} name='title' onChange={handleChange} className="block w-full border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-md" />
                             </div>
                             <div className="col-span-full">
                                 <label htmlFor="description" className="block text-sm font-medium leading-6">
                                     Description
                                 </label>
-                                <TextArea value={formData.description} name='description' size="2" onChange={handleChange} className="block w-full border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-md" />
+                                <Textarea value={formData.description} name='description' onChange={handleChange} className="block w-full border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-md" />
                                 <p className="text-sm text-slate-500 leading-6">Detailed description will help to the slove quicker.</p>
                             </div>
                         </div>

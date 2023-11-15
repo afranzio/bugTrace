@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 enum Role {
@@ -29,24 +29,23 @@ model Issue {
   status      Status   @default(OPEN)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
+  Owner     Profile? @relation(name: "Owner", fields: [createdBy], references: [id])
+  createdBy String?  @db.Uuid
+
+  Assigned   Profile? @relation(name: "AssignedTo", fields: [assignedTo], references: [id])
+  assignedTo String?  @db.Uuid
+
   @@map("issue")
 }
 
 model Profile {
-  id    String @id @db.Uuid
-  role  Role   @default(user)
-  notes Note[]
+  id       String @id @db.Uuid
+  role     Role   @default(user)
+  fullname String @default("") @db.VarChar(255)
+
+  Owner    Issue[] @relation("Owner")
+  Assigned Issue[] @relation("AssignedTo")
 
   @@map("profile")
-}
-
-model Note {
-  id   String @id @default(uuid()) @db.Uuid
-  text String
-
-  user   Profile @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  userId String  @db.Uuid
-
-  @@map("note")
 }

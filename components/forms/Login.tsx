@@ -12,21 +12,6 @@ export default function Login() {
   const router = useRouter();
   const supabase = createClientComponentClient();
 
-  const handleSignUp = async () => {
-    const { error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: `${location.origin}/auth/callback`,
-      },
-    });
-    if (error) {
-      setErrorMessage(error.message);
-    } else {
-      router.refresh();
-    }
-  };
-
   const handleSignIn = async () => {
     const { error } = await supabase.auth.signInWithPassword({
       email,
@@ -69,13 +54,6 @@ export default function Login() {
             onClick={handleSignIn}
           >
             Sign in
-          </Button>
-          <Button variant="outline"
-            className="p-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            type="button"
-            onClick={handleSignUp}
-          >
-            Sign up
           </Button>
         </div>
       </form>
