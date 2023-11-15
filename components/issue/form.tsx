@@ -1,22 +1,36 @@
 'use client';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 // Dependencies
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter, useSearchParams } from 'next/navigation';
-import axios from 'axios';
-import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
+import { Input } from '@/components/ui/input';
+import axios from 'axios';
 
 
 const IssueForm = ({ requestedIssues }: any) => {
     const router = useRouter();
     const searchParams = useSearchParams()
     const id = Number(searchParams.get('id'));
+    const supabase = createClientComponentClient();
 
     const [formData, setFormData] = useState(requestedIssues ? requestedIssues : {
         title: '',
         description: '',
+        Owner: ''
     });
+
+    useEffect(() => {
+        const getSession = async () => {
+            const { data } = await supabase.auth.getSession();
+            setFormData((prevData: any) => ({
+                ...prevData,
+                Owner: data.session ? data.session.user.id : "",
+            }));
+        }
+        getSession()
+    }, [router, supabase.auth])
 
     // Function to go to the previous page
     const goBack = () => {

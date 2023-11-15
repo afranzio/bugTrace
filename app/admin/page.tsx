@@ -7,7 +7,7 @@ export default async function Home() {
   const supabase = createServerComponentClient({ cookies });
   const { data } = await supabase.auth.getSession();
   if (!data.session?.user) {
-    redirect("/login");
+    redirect("/user/login");
   }
 
   const profile = await prisma.profile.findUnique({

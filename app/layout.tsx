@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html data-theme="light" lang="en">
       <link rel="icon" href="/bug.svg" sizes="any" />
-      <body>
+      <body className='w-full h-full overflow-y-scroll no-scrollbar'>
         <ThemeProvider
           attribute="class"
           defaultTheme="system"

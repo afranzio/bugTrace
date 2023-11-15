@@ -37,9 +37,6 @@ const NavBar = () => {
         const getSession = async () => {
             const { data } = await supabase.auth.getSession();
             setUserLogged(data.session?.user ? true : false)
-            if (!data.session?.user) {
-                router.push("/login");
-            }
         }
         getSession()
     }, [userLogged, currentPath, router, supabase.auth])
@@ -47,7 +44,7 @@ const NavBar = () => {
     const handleSignOut = async () => {
         await supabase.auth.signOut();
         setUserLogged(false)
-        router.refresh();
+        router.push("/user/login");
     };
 
     return (
@@ -92,13 +89,13 @@ const NavBar = () => {
                                 </label>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <Link href="/users">
+                                <Link href="/user">
                                     <DropdownMenuItem>
                                         Profile
                                     </DropdownMenuItem>
                                 </Link>
                                 {
-                                    !userLogged ? <Link href="/login">
+                                    !userLogged ? <Link href="/user/login">
                                         <DropdownMenuItem>
                                             Login
                                         </DropdownMenuItem>

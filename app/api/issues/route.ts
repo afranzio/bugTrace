@@ -25,9 +25,9 @@ export async function POST(request: NextRequest) {
     if (!validation.success) {
         return NextResponse.json(validation.error.errors, { status: 400 })
     }
-
+    console.log(body)
     const newIssue = await prisma.issue.create({
-        data: { title: body.title, description: body.description }
+        data: body
     })
 
     return NextResponse.json(newIssue, { status: 201 })
@@ -79,26 +79,26 @@ export async function GET(request: NextRequest) {
 
     let getIssues;
 
-    if(type === "all"){
+    if (type === "all") {
         getIssues = await prisma.issue.findMany({
             orderBy: {
                 id: 'desc',
             }
         })
-    }else if(type === "NotClosed"){
+    } else if (type === "NotClosed") {
         getIssues = await prisma.issue.findMany({
             where: {
-                NOT:{
+                NOT: {
                     status: 'CLOSE',
                 }
             },
             orderBy: {
                 id: 'desc',
             }
-        })    
-    }else{
+        })
+    } else {
         getIssues = await prisma.issue.findMany({
-            skip: page>1 ? page*10-10 : 0,
+            skip: page > 1 ? page * 10 - 10 : 0,
             take: 10,
             orderBy: {
                 id: 'desc',

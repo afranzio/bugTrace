@@ -40,9 +40,8 @@ model Issue {
 }
 
 model Profile {
-  id       String @id @db.Uuid
-  role     Role   @default(user)
-  fullname String @default("") @db.VarChar(255)
+  id   String @id @db.Uuid
+  role Role   @default(user)
 
   Owner    Issue[] @relation("Owner")
   Assigned Issue[] @relation("AssignedTo")
