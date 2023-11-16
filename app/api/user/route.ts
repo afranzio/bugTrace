@@ -74,37 +74,8 @@ export async function DELETE(request: NextRequest) {
 
 export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url);
-    const page = Number(searchParams.get("page"));
-    const type = searchParams.get("type");
 
-    let getIssues;
+    let getUserList = prisma
 
-    if (type === "all") {
-        getIssues = await prisma.issue.findMany({
-            orderBy: {
-                id: 'desc',
-            }
-        })
-    } else if (type === "NotClosed") {
-        getIssues = await prisma.issue.findMany({
-            where: {
-                NOT: {
-                    status: 'CLOSE',
-                }
-            },
-            orderBy: {
-                id: 'desc',
-            }
-        })
-    } else {
-        getIssues = await prisma.issue.findMany({
-            skip: page > 1 ? page * 10 - 10 : 0,
-            take: 10,
-            orderBy: {
-                id: 'desc',
-            }
-        })
-    }
-
-    return NextResponse.json(getIssues, { status: 200 })
+    return NextResponse.json(getUserList, { status: 200 })
 }

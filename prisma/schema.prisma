@@ -2,17 +2,21 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["multiSchema"]
 }
 
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
+  schemas  = ["auth", "public"]
 }
 
 enum Role {
   admin
   user
+
+  @@schema("public")
 }
 
 enum Status {
@@ -20,6 +24,8 @@ enum Status {
   IN_PROGRESS
   HOLD
   CLOSE
+
+  @@schema("public")
 }
 
 model Issue {
@@ -37,6 +43,7 @@ model Issue {
   assignedTo String?  @db.Uuid
 
   @@map("issue")
+  @@schema("public")
 }
 
 model Profile {
@@ -47,4 +54,5 @@ model Profile {
   Assigned Issue[] @relation("AssignedTo")
 
   @@map("profile")
+  @@schema("public")
 }
