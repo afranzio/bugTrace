@@ -14,10 +14,16 @@ type Props = {
 const UpdateIssue = async (props: Props) => {
     const id = Number(props.searchParams.id);
     let requestedIssues;
+    let userList;
 
     try {
         requestedIssues = await prisma.issue.findUniqueOrThrow({
             where: { id: id }
+        })
+        userList = await prisma.profile.findMany({
+            orderBy: {
+                id: 'desc',
+            }
         })
     } catch (error) {
         console.error('An error occurred:', error);
@@ -26,7 +32,7 @@ const UpdateIssue = async (props: Props) => {
     return (
         <div className="container w-full md:w-1/2">
             <h2 className="text-xl border-b border-gray-900/10 pb-3 font-semibold leading-7 subpixel-antialiased">Update Issue</h2>
-            <IssueForm requestedIssues={requestedIssues} />
+            <IssueForm requestedIssues={requestedIssues} userList={userList} />
         </div>
     )
 }
