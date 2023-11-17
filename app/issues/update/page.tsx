@@ -18,7 +18,16 @@ const UpdateIssue = async (props: Props) => {
 
     try {
         requestedIssues = await prisma.issue.findUniqueOrThrow({
-            where: { id: id }
+            where: { id: id },
+            select: {
+                title: true,
+                description: true,
+                Assigned: {
+                    select: {
+                        fullname: true,
+                    },
+                },
+            }
         })
         userList = await prisma.profile.findMany({
             orderBy: {

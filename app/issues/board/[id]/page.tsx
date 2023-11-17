@@ -9,28 +9,30 @@ import prisma from "@/prisma/client";
 async function IssueBoard({ params }: { params: { id: string } }) {
 
   const issue = await prisma.issue.findUniqueOrThrow({
+    include: {
+      Owner: true,
+      Assigned: true,
+    },
     where: { id: Number(params.id) }
   })
-
-
 
   return (
     <main>
       <div className="max-w-2xl mx-auto shadow overflow-hidden sm:rounded-lg">
         <div className="px-4 py-5 sm:px-6 d-flex justify-between">
           <div>
-            <h3 className="text-lg leading-6 font-medium ">
+            <h3 className="text-lg leading-6 font-medium capitalize">
               {issue.title}
             </h3>
             <p className="mt-1 max-w-2xl text-sm text-slate-400">
-              Owner: {issue.createdBy}
+              Owner: {issue.Owner?.fullname}
             </p>
             <p className="mt-1 max-w-2xl text-sm text-slate-400">
               Posted: {issue.createdAt.toLocaleString()}
             </p>
           </div>
-          <div>
-            {issue.assignedTo}
+          <div className="mt-1 max-w-2xl text-md text-slate-400">
+            Assigned To: {issue.Assigned?.fullname}
           </div>
         </div>
         <div className="border-t border-gray-200 p-3 text-justify">

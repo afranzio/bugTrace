@@ -8,7 +8,7 @@ import {
     ChevronDownIcon
 } from "@radix-ui/react-icons"
 import { IoOpenOutline } from 'react-icons/io5'
-
+import { CiEdit } from "react-icons/ci";
 import {
     ColumnDef,
     ColumnFiltersState,
@@ -103,10 +103,16 @@ export const columns: ColumnDef<IssueTypes>[] = [
         id: "actions",
         enableHiding: false,
         cell: ({ row }) => <div className="capitalize">
-            <Link href={"/issues/board/"+row.getValue("id")}>
+            <Link href={"/issues/board/" + row.getValue("id")}>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                     <span className="sr-only">Open Issue</span>
                     <IoOpenOutline className="h-4 w-4" />
+                </Button>
+            </Link>
+            <Link href={"/issues/update?id=" + row.getValue("id")}>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                    <span className="sr-only">Edit Issue</span>
+                    <CiEdit className="h-4 w-4" />
                 </Button>
             </Link>
         </div>,

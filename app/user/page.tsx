@@ -4,6 +4,7 @@ import React from 'react'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import BackButton from '@/components/button/BackButton';
 
 async function UserPage() {
   const supabase = createServerComponentClient({ cookies });
@@ -54,6 +55,7 @@ async function UserPage() {
           </dl>
         </div>
       </div>
+      <BackButton />
     </main>
   )
 }

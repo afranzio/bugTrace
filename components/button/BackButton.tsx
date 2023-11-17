@@ -13,7 +13,7 @@ const BackButton = () => {
     };
     return (
         <div className='w-full text-center py-5'>
-            <Button type="button" onClick={goBack} className="text-sm font-semibold leading-6">
+            <Button type="button" onClick={goBack} variant="outline">
                 Back
             </Button>
         </div>

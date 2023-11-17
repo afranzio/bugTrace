@@ -43,7 +43,6 @@ export async function PUT(request: NextRequest) {
     }
 
     try {
-        console.log(body)
         const updatedIssue = await prisma.issue.update({
             where: {
                 id: param

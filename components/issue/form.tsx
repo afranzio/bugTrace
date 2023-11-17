@@ -6,7 +6,17 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
+import {
+    Select,
+    SelectContent,
+    SelectGroup,
+    SelectItem,
+    SelectLabel,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 import axios from 'axios';
+import { Button } from '../ui/button';
 
 
 const IssueForm = ({ requestedIssues, userList }: any) => {
@@ -19,12 +29,12 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
         title: '',
         description: '',
     });
-    const [userInfo, setUserInfo] = useState({ id: "" })
+    const [currentUser, setCurrentUser] = useState({ id: "" })
 
     useEffect(() => {
         const getSession = async () => {
             const { data } = await supabase.auth.getSession();
-            setUserInfo(data.session ? data.session.user : { id: "" })
+            setCurrentUser(data.session ? data.session.user : { id: "" })
         }
         getSession()
     }, [router, supabase.auth])
@@ -48,7 +58,7 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
                     description: formData.description,
                     Owner: {
                         connect: {
-                            id: userInfo.id, // Connect the post to the user by user ID
+                            id: currentUser.id, // Connect the post to the user by user ID
                         },
 
                     }
@@ -78,25 +88,23 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
 
     const handleChange = (e: any) => {
         const { name, value } = e.target;
-
         // Update the form data state when an input field changes
-        if (name !== "assignedTo") {
-            setFormData((prevData: any) => ({
-                ...prevData,
-                [name]: value,
-            }));
-        } else {
-            setFormData((prevData: any) => ({
-                ...prevData,
-                Assigned: {
-                    connect: {
-                        id: value,
-                    },
-
-                }
-            }));
-        }
+        setFormData((prevData: any) => ({
+            ...prevData,
+            [name]: value,
+        }));
     };
+
+    const handleAssignment = (id: string) => {
+        setFormData((prevData: any) => ({
+            ...prevData,
+            Assigned: {
+                connect: {
+                    id: id,
+                },
+            }
+        }));
+    }
 
     return (
         <div>
@@ -115,9 +123,17 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
                                     <label htmlFor="username" className="block text-sm font-medium leading-6">
                                         Assigned To
                                     </label>
-                                    <select defaultValue={requestedIssues.assignedTo} className="text-sm rounded bg-transparent border-none py-2 self-center" name='assignedTo' onChange={handleChange}>
-                                        {userList?.map((each: any) => <option className={`d-flex justify-between pl-5 py-2 text-sm text-slate-900 }`} key={each.id} value={each.id}>{each.fullname}</option>)}
-                                    </select>
+                                    <Select name='assignedTo' onValueChange={handleAssignment}>
+                                        <SelectTrigger className="w-full">
+                                            <SelectValue placeholder={requestedIssues.Assigned.fullname} />
+                                        </SelectTrigger>
+                                        <SelectContent>
+                                            <SelectGroup>
+                                                <SelectLabel>Assigned to</SelectLabel>
+                                                {userList?.map((each: any) => <SelectItem key={each.id} value={each.id}>{each.fullname}</SelectItem>)}
+                                            </SelectGroup>
+                                        </SelectContent>
+                                    </Select>
                                 </div>
                             }
                             <div className="col-span-full">
@@ -130,15 +146,15 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
                         </div>
                     </div>
                     <div className="mt-6 flex items-center justify-end gap-x-6 mx-auto">
-                        <button type="button" onClick={goBack} className="text-sm font-semibold leading-6">
+                        <Button type="button" variant="outline" onClick={goBack}>
                             Cancel
-                        </button>
-                        <button
+                        </Button>
+                        <Button
                             type="submit"
-                            className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                            variant="default"
                         >
                             Submit
-                        </button>
+                        </Button>
                     </div>
                 </div>
             </form>
