@@ -51,6 +51,7 @@ export async function PUT(request: NextRequest) {
         })
         return NextResponse.json(updatedIssue, { status: 202 })
     } catch (error) {
+        console.log(error)
         return NextResponse.json(error, { status: 401 })
     }
 }

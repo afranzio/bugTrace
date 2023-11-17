@@ -29,7 +29,7 @@ export default function Login() {
     <>
       {errorMessage && <p className="bg-red-500 rounded p-4 my-3 font-mono">{errorMessage}</p>}
       <form className="flex flex-col gap-4">
-        <label className="grid text-sm font-bold mb-2">
+        <label className="grid text-sm font-normal mb-2">
           Email
           <input
             className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -38,7 +38,7 @@ export default function Login() {
             value={email}
           />
         </label>
-        <label className="grid text-sm font-bold mb-2">
+        <label className="grid text-sm font-normal mb-2">
           Password
           <input
             className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -48,14 +48,15 @@ export default function Login() {
             value={password}
           />
         </label>
-        <p>New to BugTracker? {" "}
-          <Link href="/user/signup" className="font-medium p-0 m-0 w-fit text-sm hover:underline">
+        <p className="text-sm font-normal mb-2">
+          New to BugTracker? {" "}
+          <Link href="/user/signup" className="font-normal p-0 m-0 w-fit text-sm hover:underline">
             Signup
           </Link>
         </p>
         <div className="w-full d-flex justify-around">
-          <Button variant="secondary"
-            className="p-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          <Button variant="default"
+            className="p-2 font-normal py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="button"
             onClick={handleSignIn}
           >

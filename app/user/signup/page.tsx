@@ -13,7 +13,7 @@ export default async function SignupPage() {
   return (
     <div className="d-flex w-full max-w-lg m-auto">
       <main className="w-full m-auto justify-center self-center">
-        <h1 className="text-2xl text-center font-bold mb-2">Signup</h1>
+        <h1 className="text-2xl text-center font-bold mb-2 font-mono">Signup</h1>
         <Signup />
       </main>
     </div>

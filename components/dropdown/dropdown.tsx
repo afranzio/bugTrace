@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/select"
 
 const DropDownMenu = ({ userStatus }: any) => {
-    const status = {
+    const status: {} = {
         "OPEN": "Open",
         "CLOSE": "Close",
         "IN_PROGRESS": "Working",
@@ -47,12 +47,16 @@ const DropDownMenu = ({ userStatus }: any) => {
         <div className="self-center h-full d-flex">
             <Select name='assignedTo' onValueChange={handleIssueStatusChange}>
                 <SelectTrigger className="w-full">
-                    <SelectValue placeholder={userStatus.getValue("status")} />
+                    <SelectValue placeholder={Object(status)[userStatus.getValue("status")]} />
                 </SelectTrigger>
                 <SelectContent>
                     <SelectGroup>
                         <SelectLabel>Bug State</SelectLabel>
-                        {Object.entries(status).map(([key, value]) => <SelectItem key={key} value={key}>{value}</SelectItem>)}
+                        {Object.entries(status).map(([key, value]) => (
+                            <SelectItem key={key} value={key}>
+                                {value as React.ReactNode}
+                            </SelectItem>
+                        ))}
                     </SelectGroup>
                 </SelectContent>
             </Select>

@@ -25,6 +25,7 @@ const UpdateIssue = async (props: Props) => {
                 Assigned: {
                     select: {
                         fullname: true,
+                        id: true
                     },
                 },
             }

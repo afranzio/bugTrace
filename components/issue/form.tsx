@@ -16,8 +16,9 @@ import {
     SelectValue,
 } from "@/components/ui/select"
 import axios from 'axios';
-import { Button } from '../ui/button';
-import PlateEditor from '../richText/plate-editor';
+import SimpleMDE from "react-simplemde-editor";
+import "easymde/dist/easymde.min.css";
+import { Button } from '@/components/ui/button';
 
 
 const IssueForm = ({ requestedIssues, userList }: any) => {
@@ -75,10 +76,6 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
             } else if (response.status === 202) {
                 console.log('Response from the server:', response.data);
                 alert("Issue updated successfully!");
-                setFormData({
-                    title: '',
-                    description: '',
-                });
             } else {
                 console.log('Response from the server:', response.data);
             }
@@ -92,7 +89,24 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
         // Update the form data state when an input field changes
         setFormData((prevData: any) => ({
             ...prevData,
+            Assigned: {
+                connect: {
+                    id: id,
+                },
+            },
             [name]: value,
+        }));
+    };
+
+    const handleDescriptionChange = (value: any) => {
+        setFormData((prevData: any) => ({
+            ...prevData,
+            description: value,
+            Assigned: {
+                connect: {
+                    id: requestedIssues.Assigned.id
+                },
+            }
         }));
     };
 
@@ -126,7 +140,7 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
                                     </label>
                                     <Select name='assignedTo' onValueChange={handleAssignment}>
                                         <SelectTrigger className="w-full">
-                                            <SelectValue placeholder={requestedIssues.Assigned.fullname} />
+                                            <SelectValue placeholder={requestedIssues.Assigned ? requestedIssues.Assigned.fullname : ""} />
                                         </SelectTrigger>
                                         <SelectContent>
                                             <SelectGroup>
@@ -141,11 +155,8 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
                                 <label htmlFor="description" className="block text-sm font-medium leading-6">
                                     Description
                                 </label>
-                                <Textarea value={formData.description} name='description' onChange={handleChange} className="block w-full border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-md" />
+                                <SimpleMDE value={formData.description} onChange={handleDescriptionChange} />
                                 <p className="text-sm text-slate-500 leading-6">Detailed description will help to the slove quicker.</p>
-                            </div>
-                            <div>
-                                <PlateEditor />
                             </div>
                         </div>
                     </div>

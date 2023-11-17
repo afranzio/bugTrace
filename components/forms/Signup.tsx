@@ -74,7 +74,7 @@ export default function Signup() {
         <>
             {errorMessage && <p className="bg-red-400 rounded p-4 my-3 font-mono">{errorMessage}</p>}
             <form className="flex flex-col gap-4">
-                <label className="grid text-sm font-bold mb-2">
+                <label className="grid text-sm font-normal mb-2">
                     Fullname
                     <input
                         className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -83,7 +83,7 @@ export default function Signup() {
                         value={fullname}
                     />
                 </label>
-                <label className="grid text-sm font-bold mb-2">
+                <label className="grid text-sm font-normal mb-2">
                     Role
                     <input
                         className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -92,7 +92,7 @@ export default function Signup() {
                         value={role}
                     />
                 </label>
-                <label className="grid text-sm font-bold mb-2">
+                <label className="grid text-sm font-normal mb-2">
                     Email
                     <input
                         className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -101,7 +101,7 @@ export default function Signup() {
                         value={email}
                     />
                 </label>
-                <label className="grid text-sm font-bold mb-2">
+                <label className="grid text-sm font-normal mb-2">
                     Password
                     <input
                         className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -111,7 +111,7 @@ export default function Signup() {
                         value={password}
                     />
                 </label>
-                <label className="grid text-sm font-bold mb-2">
+                <label className="grid text-sm font-normal mb-2">
                     Confirm Password
                     <input
                         className="shadow font-normal appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
@@ -121,14 +121,15 @@ export default function Signup() {
                         value={cnfpassword}
                     />
                 </label>
-                <p>Already a member? {" "}
-                    <Link href="/user/login" className="font-medium p-0 m-0 w-fit text-sm hover:underline">
+                <p className="text-sm font-normal mb-2">
+                    Already a member? {" "}
+                    <Link href="/user/login" className="font-normal p-0 m-0 w-fit text-sm hover:underline">
                         Login
                     </Link>
                 </p>
                 <div className="w-full d-flex justify-around">
-                    <Button variant="secondary"
-                        className="p-2 font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    <Button variant="default"
+                        className="p-2 font-normal py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         type="button"
                         onClick={handleSignUp}
                     >

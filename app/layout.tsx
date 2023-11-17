@@ -8,7 +8,10 @@ import FootBar from "@/components/footer/foot"
 // import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+})
 
 export const metadata: Metadata = {
   title: 'Tracker',
@@ -21,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html data-theme="light" lang="en">
+    <html data-theme="light" lang="en" className={inter.className}>
       <link rel="icon" href="/bug.svg" sizes="any" />
       <body className='w-full h-full overflow-y-scroll no-scrollbar'>
         <ThemeProvider

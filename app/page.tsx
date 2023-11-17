@@ -8,6 +8,7 @@ import { redirect } from "next/navigation";
 
 // DB
 import prisma from "@/prisma/client";
+import { Button } from '@/components/ui/button';
 
 async function AppPage() {
   const supabase = createServerComponentClient({ cookies });
@@ -43,9 +44,9 @@ async function AppPage() {
     <main className="mx-auto justify-center d-flex">
       <div>
         <Link className="d-flex justify-center w-fit mx-auto" href="/issues/new">
-          <button className="btn btn-wide btn-neutral my-3">
+          <Button variant={'default'} className="btn btn-wide my-3">
             Raise a Issue
-          </button>
+          </Button>
         </Link>
         <div className="stats shadow my-10 py-5 hidden md:flex">
           <Link href="/issues" className="stat hover:cursor-pointer">
