@@ -8,6 +8,8 @@ import FootBar from "@/components/footer/foot"
 // import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from "@/components/theme-provider";
 
+export const revalidate = 0;
+
 const inter = Inter({
   subsets: ['latin'],
   display: 'swap',
