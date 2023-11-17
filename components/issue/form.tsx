@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/select"
 import axios from 'axios';
 import { Button } from '../ui/button';
+import PlateEditor from '../richText/plate-editor';
 
 
 const IssueForm = ({ requestedIssues, userList }: any) => {
@@ -142,6 +143,9 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
                                 </label>
                                 <Textarea value={formData.description} name='description' onChange={handleChange} className="block w-full border-0 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6 rounded-md" />
                                 <p className="text-sm text-slate-500 leading-6">Detailed description will help to the slove quicker.</p>
+                            </div>
+                            <div>
+                                <PlateEditor />
                             </div>
                         </div>
                     </div>

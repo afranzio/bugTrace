@@ -59,6 +59,7 @@ export const columns: ColumnDef<IssueTypes>[] = [
                 <Button
                     variant="ghost"
                     onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+                    className="w-fit"
                 >
                     Bug ID
                     <CaretSortIcon className="ml-2 h-4 w-4" />
@@ -81,7 +82,7 @@ export const columns: ColumnDef<IssueTypes>[] = [
         accessorKey: "title",
         header: () => <div>Title</div>,
         cell: ({ row }) => {
-            return <div className="capitalize">{String(row.getValue("title")).substring(0, 20) + "..."}</div>
+            return <div className="capitalize">{String(row.getValue("title")).substring(0, 15) + "..."}</div>
         },
     },
     {
@@ -97,7 +98,7 @@ export const columns: ColumnDef<IssueTypes>[] = [
                 </Button>
             )
         },
-        cell: ({ row }) => <div className="capitalize">{String(row.getValue("description")).substring(0, 50) + "..."}</div>,
+        cell: ({ row }) => <div className="capitalize">{String(row.getValue("description")).substring(0, 40) + "..."}</div>,
     },
     {
         id: "actions",

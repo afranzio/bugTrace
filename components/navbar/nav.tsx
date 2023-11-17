@@ -67,7 +67,7 @@ const NavBar = () => {
                             {navigation.map((link, index) =>
                                 <Link href={link.href} key={index} className={classnames({
                                     'transition-colors d-flex mx-3 justify-center self-center hover:font-semibold rounded w-28': true,
-                                    'border-b-4 border-indigo-500 pt-1 font-semibold': link.href === currentPath || currentPath === "/issues/new" && link.name === "Issues",
+                                    'border-b-4 border-indigo-500 pt-1 font-semibold': link.href === currentPath || currentPath.includes("/issues") && link.name === "Issues",
                                 })}>
                                     {link.name}
                                 </Link>
