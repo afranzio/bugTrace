@@ -4,8 +4,6 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import NavBar from "@/components/navbar/nav"
 import FootBar from "@/components/footer/foot"
-
-// import { Theme } from '@radix-ui/themes';
 import { ThemeProvider } from "@/components/theme-provider";
 
 export const revalidate = 0;

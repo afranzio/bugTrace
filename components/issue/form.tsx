@@ -4,7 +4,6 @@ import React, { useState, useEffect } from 'react'
 // Dependencies
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter, useSearchParams } from 'next/navigation';
-import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import {
     Select,
@@ -104,7 +103,7 @@ const IssueForm = ({ requestedIssues, userList }: any) => {
             description: value,
             Assigned: {
                 connect: {
-                    id: requestedIssues.Assigned.id
+                    id: requestedIssues && requestedIssues.Assigned ? requestedIssues.Assigned.id : id
                 },
             }
         }));
